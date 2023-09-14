@@ -1,20 +1,19 @@
 pipeline {
 	agent any
 	stages {
-		stage('UnitTest') {
-			steps {
-				echo "This is the jenkins pipeline"
-				echo "Running Unit test"
-			}
-		}
 		stage('Build') {
 			steps {
 				echo "Building the code"
+				sh 'docker image build -t ashish56/devops_demo:v2.$BUILD_NUMBER .'
 			}
 		}
 		stage('DeployStaging') {
 			steps {
 				echo "Deploying to staging env"
+				sh 'docker container stop myapp || true'
+				sh 'docker container rm myapp ||true'
+				echo "Building docker container"
+				sh 'docker container run -d --name myapp -p 8071:8071 ashish56/devops_demo:v2.$BUILD_NUMBER'
 			}
 		}
 		stage('DeploytoProd'){
