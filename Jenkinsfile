@@ -10,10 +10,10 @@ pipeline {
 		stage('DeployStaging') {
 			steps {
 				echo "Deploying to staging env"
-				sh 'docker container stop myapp || true'
-				sh 'docker container rm myapp ||true'
+				sh 'docker container stop mystagingapp || true'
+				sh 'docker container rm mystagingapp ||true'
 				echo "Building docker container"
-				sh 'docker container run -d --name myapp -p 8072:8071 ashish56/devops_demo:v2.$BUILD_NUMBER'
+				sh 'docker container run -d --name mystagingapp -p 8072:8071 ashish56/devops_demo:v2.$BUILD_NUMBER'
 			}
 		}
 		stage('DeploytoProd'){
@@ -23,9 +23,9 @@ pipeline {
 				}
 				echo "Deploying to prod env"
 				sh '''
-				docker container stop myapp || true
-				docker container rm myapp || true
-				docker container run -d --name myapp -p 8073:8071 ashish56/devops_demo:v2.$BUILD_NUMBER
+				docker container stop myprodapp || true
+				docker container rm myprodapp || true
+				docker container run -d --name myprodapp -p 8073:8071 ashish56/devops_demo:v2.$BUILD_NUMBER
 				'''
 			}
 		}
