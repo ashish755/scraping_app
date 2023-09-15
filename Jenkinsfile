@@ -13,7 +13,7 @@ pipeline {
 				sh 'docker container stop myapp || true'
 				sh 'docker container rm myapp ||true'
 				echo "Building docker container"
-				sh 'docker container run -d --name myapp -p 8071:8071 ashish56/devops_demo:v2.$BUILD_NUMBER'
+				sh 'docker container run -d --name myapp -p 8072:8071 ashish56/devops_demo:v2.$BUILD_NUMBER'
 			}
 		}
 		stage('DeploytoProd'){
@@ -25,7 +25,7 @@ pipeline {
 				sh '''
 				docker container stop myapp || true
 				docker container rm myapp || true
-				docker container run -d --name myapp -p 8072:8071 ashish56/devops_demo:v2.$BUILD_NUMBER
+				docker container run -d --name myapp -p 8073:8071 ashish56/devops_demo:v2.$BUILD_NUMBER
 				'''
 			}
 		}
