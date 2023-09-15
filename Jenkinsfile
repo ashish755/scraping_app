@@ -22,4 +22,16 @@ pipeline {
 			}
 		}
 	}
+	post {
+		always {
+			echo "Post stage..."
+		}
+		failure {
+			echo "Job failed"
+		}
+		success {
+			echo "Job ran successfully"
+			sh 'docker push ashish56/devops_demo:v2.$BUILD_NUMBER'
+		}
+	}
 }
