@@ -49,7 +49,7 @@ pipeline {
 			Regards,
 			Jenkins
 			""",
-			cc: '', from: '', replyTo: '', subject: 'BUILD SUCESS NOTIFICATION',
+			cc: '', from: '', replyTo: '', subject: 'BUILD FAILED NOTIFICATION',
                         to: 'maharjanashish96@gmail.com'
 		}
 		success {
@@ -66,7 +66,7 @@ pipeline {
 			Regards,
 			Jenkins
 			""",
-			cc: '', from: '', replyTo: '', subject: 'BUILD SUCESS NOTIFICATION',
+			cc: '', from: '', replyTo: '', subject: 'BUILD SUCCESS NOTIFICATION',
 			to: 'maharjanashish96@gmail.com'
 		}
 	}
