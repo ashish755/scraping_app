@@ -32,14 +32,42 @@ pipeline {
 	}
 	post {
 		always {
-			echo "Post stage..."
+			mail to: 'maharjanashish96@gmail.com'
+			subject: "Job '$JOB_NAME' (${BUILD_NUMBER}) is waiting for input",
+			body: "Please go to ${BUILD_URL} and verify the build"
 		}
 		failure {
 			echo "Job failed"
+			mail bcc: '', body: """
+			Hello User,
+			
+			Build #$BUILD_NUMBER is unsuccessful, please go through the url
+
+			$BUILD_URL
+			and verify the details.
+
+			Regards,
+			Jenkins
+			""",
+			cc: '', from: '', replyTo: '', subject: 'BUILD SUCESS NOTIFICATION',
+                        to: 'maharjanashish96@gmail.com'
 		}
 		success {
 			echo "Job ran successfully"
 			sh 'docker push ashish56/devops_demo:v2.$BUILD_NUMBER'
+			
+			mail bcc: '', body: """
+			Hello User,
+			
+			Build #$BUILD_NUMBER is successful, please go through url
+			$BUILD_URL
+			and verify the details.
+
+			Regards,
+			Jenkins
+			""",
+			cc: '', from: '', replyTo: '', subject: 'BUILD SUCESS NOTIFICATION',
+			to: 'maharjanashish96@gmail.com'
 		}
 	}
 }
