@@ -18,7 +18,15 @@ pipeline {
 		}
 		stage('DeploytoProd'){
 			steps {
+				timeout(time:1, unit:'DAYS'){
+				input message:'Approve PRODUCTION Deployment?'
+				}
 				echo "Deploying to prod env"
+				sh '''
+				docker container stop myapp || true
+				docker container rm myapp || true
+				docker container run -d --name myapp -p 8072:8071 ashish56/devops_demo:v2.$BUILD_NUMBER
+				'''
 			}
 		}
 	}
